@@ -3,6 +3,7 @@ import pygame
 
 pygame.init()
 
+#hola
 
 #pantalla del juego
 Screen_width=1000
