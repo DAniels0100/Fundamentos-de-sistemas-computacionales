@@ -24,7 +24,6 @@ while run:
     if (Rpi.isOpen()):
         datos=Rpi.readline()
         decode=datos.decode('UTF-8')
-        
         if decode[0]=="#":
             decode=decode[1:]
             if int(decode)<20000:
