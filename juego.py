@@ -103,14 +103,13 @@ text_font=pygame.font.SysFont('Arial',20)
 
 
 #texto de pantalla de informacion
-info_text1="AUTOR: "
-info_text2="Información general: Estudiante del Tecnológico de Costa Rica, 2024." 
+info_text1="AUTORES: Sergio Alvarez, Anthony"
+info_text2="Información general: Estudiantes del Tecnológico de Costa Rica, 2024." 
 info_text2_="Primer ingreso en la carrera \"Ingeniería en computadores\"." 
 info_text3="Este proyecto se desarrolló utilizando python 3.11, apoyandose" 
 info_text4="en la librería especializada para crear juegos llamada Pygame"
 info_text5="Profesor: Leonardo Araya Año: 2024"
-info_text6="blabla"
-info_text7="blabla"
+
 
 
 #deteccion de mouse
@@ -138,12 +137,19 @@ def player(x, y,lista, image_index):
       return player_Image, player_Rect
 
 
+def anotaciones(x, y, valor):
+      fallo=pygame.draw.rect(screen, (255,0,0), (110,110,x,y))
+      anotacion=pygame.draw.rect(screen, (0,255,0), (110,110,x,y))
+      
+      if valor[0]=='A' or valor=='B' or valor=='C' or valor=='D' or valor=='E' or valor=='F':
+            print('balon detenido')
+      else:
+            print('anotacion')
+
 run=True
 
 while run:
-      print(match_players1,'equipo1',match_goalkeepers1)
-      print(match_players2,'equipo2',match_goalkeepers2)
-      print(match_players3,'equipo3',match_goalkeepers3)
+
 
       if (Rpi.isOpen()):
             datos=Rpi.readline()
@@ -198,8 +204,6 @@ while run:
                   draw_text(info_text3,text_font,(0,0,0), 100, 200)
                   draw_text(info_text4,text_font,(0,0,0), 100, 250)
                   draw_text(info_text5,text_font,(0,0,0), 100, 300)
-                  draw_text(info_text6,text_font,(0,0,0), 100, 350)
-                  draw_text(info_text7,text_font,(0,0,0), 100, 400) 
                   if button_Back_Rect.collidepoint(mouse):
                         if click[0]:
                               pantalla_Info=False
@@ -240,12 +244,6 @@ while run:
 
 
 
-                  
-                  if button_Back_Rect.collidepoint(mouse):
-                        if click[0]:
-                              pantalla_Seleccion=False
-                              pantalla_Inicial=True
-                         
             if brasil_Team:
                   screen.fill((155,155,30))
                   draw_text(f"Jugadores seleccionados:{len(match_players1)//2+len(match_goalkeepers1)//2}",pygame.font.SysFont('Algerian',30),(0,0,0), 175, 25)
@@ -577,6 +575,8 @@ while run:
                                     draw_text("Local   Anotaciones",pygame.font.SysFont('Algerian',40),(255,255,255), 70, 50)
                         except:
                               pass
+                  
+                        anotaciones(100,100, decode)
 
             
             for event in pygame.event.get():
