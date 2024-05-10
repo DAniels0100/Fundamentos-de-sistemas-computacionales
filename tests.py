@@ -54,7 +54,7 @@ while run:
         if decode[0]=="F":
             print('paleta 6 activa')
             screen.fill((100,150,100))
-
+#HOLA MUNDO
 
 
     for event in pygame.event.get():
