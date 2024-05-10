@@ -1,5 +1,6 @@
 import pygame
 import time
+#from juego import decode
 
 pygame.init()
 
@@ -107,6 +108,8 @@ def teams(x, y, image_num):
 run=True
 
 while run:
+      #print(decode)
+
 
       clock.tick(fps)
 

@@ -7,7 +7,7 @@ pygame.init()
 screen=pygame.display.set_mode((800,600))
 
 screen.fill((25,255,255))
-Rpi=serial.Serial(port="COM5", baudrate=115200)
+Rpi=serial.Serial(port="COM4", baudrate=115200)
 
 try:
     Rpi.open()
@@ -27,11 +27,11 @@ while run:
         if decode[0]=="#":
             decode=decode[1:]
             if int(decode)<20000:
-                print('equipo 1')
+                print(decode)
             elif int(decode)>20000 and int(decode)<50000:
-                print("equipo 2")
+                print("equipo 2", decode)
             elif int(decode)>50000:
-                print('equipo 3')
+                print('equipo 3', decode)
         if decode[0]=="%":
             decode=decode[1:]
             if int(decode)==1:
