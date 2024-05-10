@@ -1,7 +1,7 @@
 import pygame
 import time
 import serial
-
+from random import randint
 pygame.init()
 
 #pantalla del juego
@@ -38,7 +38,7 @@ match_players2=[]
 match_goalkeepers2=[]
 match_players3=[]
 match_goalkeepers3=[]
-
+moneda_List=['assets/moneda.jpg', 'assets/monedadelante.png', 'assets/monedadetras.png']
 
 #pantalla inicial del juego
 pantalla_Inicial=True
@@ -50,10 +50,12 @@ imagen_Fondo=pygame.transform.scale(pygame.image.load('assets/estadio.jpg'),(scr
 #pantallas
 pantalla_Info=False
 pantalla_Seleccion=False
+pantalla_Moneda=False
+monedaLanzada=0
 brasil_Team=False
 argentina_Team=False
 costarica_Team=False
-
+pantalla_Penales=False
 
 #boton info
 def Button_info(x,y):
@@ -263,7 +265,7 @@ while run:
 
                   if decode_potenciometro<=2:
                         pygame.draw.rect(screen, (255,255,0), playerBrasil1_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 100, 300)
+                        draw_text("Neymar",pygame.font.SysFont('Algerian',30),(0,0,0), 100, 300)
                         if decode[0]=="G":
                               
                               match_players1.append(playerBrasil1_Image)
@@ -276,7 +278,7 @@ while run:
 
                   if decode_potenciometro>2 and decode_potenciometro<=5:
                         pygame.draw.rect(screen, (255,255,0), playerBrasil2_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 425, 300)
+                        draw_text("Ronaldinho",pygame.font.SysFont('Algerian',30),(0,0,0), 425, 300)
                         if decode[0]=="G":
                               
                               match_players1.append(playerBrasil2_Image)
@@ -289,7 +291,7 @@ while run:
 
                   if decode_potenciometro>5 and decode_potenciometro<=7:
                         pygame.draw.rect(screen, (255,255,0), playerBrasil3_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 700, 300)
+                        draw_text("Fabricio",pygame.font.SysFont('Algerian',30),(0,0,0), 700, 300)
                         if decode[0]=="G":
                               
                               match_players1.append(playerBrasil3_Image)
@@ -302,7 +304,7 @@ while run:
 
                   if decode_potenciometro>7 and decode_potenciometro<=10:
                         pygame.draw.rect(screen, (255,255,0), porteroBrasil1_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 100, 600)
+                        draw_text("Alisson",pygame.font.SysFont('Algerian',30),(0,0,0), 100, 600)
                         if decode[0]=="G":
                               
                               match_goalkeepers1.append(porteroBrasil1_Imagen)
@@ -314,7 +316,7 @@ while run:
 
                   if decode_potenciometro>10 and decode_potenciometro<=12:
                         pygame.draw.rect(screen, (255,255,0), porteroBrasil2_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 425, 600)
+                        draw_text("Edderson",pygame.font.SysFont('Algerian',30),(0,0,0), 425, 600)
                         if decode[0]=="G":
                               
                               match_goalkeepers1.append(porteroBrasil2_Imagen)
@@ -327,7 +329,7 @@ while run:
 
                   if decode_potenciometro>12 and decode_potenciometro<=15:
                         pygame.draw.rect(screen, (255,255,0), porteroBrasil3_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 700, 600)
+                        draw_text("Taffarel",pygame.font.SysFont('Algerian',30),(0,0,0), 700, 600)
                         if decode[0]=="G":
                               
                               match_goalkeepers1.append(porteroBrasil2_Imagen)
@@ -363,7 +365,7 @@ while run:
                   screen.blit(porteroArgentina3_Imagen, porteroArgentina3_Rect)
                   if decode_potenciometro<=2:
                         pygame.draw.rect(screen, (255,255,0), playerArgentina1_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 100, 300)
+                        draw_text("Messi",pygame.font.SysFont('Algerian',30),(0,0,0), 100, 300)
                         if decode[0]=="G":
                               
                               match_players2.append(playerArgentina1_Image)
@@ -376,7 +378,7 @@ while run:
 
                   if decode_potenciometro>2 and decode_potenciometro<=5:
                         pygame.draw.rect(screen, (255,255,0), playerArgentina2_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 425, 300)
+                        draw_text("Dimaria",pygame.font.SysFont('Algerian',30),(0,0,0), 425, 300)
                         if decode[0]=="G":
                               
                               match_players2.append(playerArgentina2_Image)
@@ -388,7 +390,7 @@ while run:
 
                   if decode_potenciometro>5 and decode_potenciometro<=7:
                         pygame.draw.rect(screen, (255,255,0), playerArgentina3_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 700, 300)
+                        draw_text("Kun Aguero",pygame.font.SysFont('Algerian',30),(0,0,0), 700, 300)
                         if decode[0]=="G":
                               
                               match_players2.append(playerArgentina3_Image)
@@ -400,7 +402,7 @@ while run:
 
                   if decode_potenciometro>7 and decode_potenciometro<=10:
                         pygame.draw.rect(screen, (255,255,0), porteroArgentina1_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 100, 600)
+                        draw_text("Dibu",pygame.font.SysFont('Algerian',30),(0,0,0), 100, 600)
                         if decode[0]=="G":
                               
                               match_goalkeepers2.append(porteroArgentina1_Imagen)
@@ -413,7 +415,7 @@ while run:
 
                   if decode_potenciometro>10 and decode_potenciometro<=12:
                         pygame.draw.rect(screen, (255,255,0), porteroArgentina2_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 425, 600)
+                        draw_text("Marchesin",pygame.font.SysFont('Algerian',30),(0,0,0), 425, 600)
                         if decode[0]=="G":
                               
                               match_goalkeepers2.append(porteroArgentina2_Imagen)
@@ -426,7 +428,7 @@ while run:
 
                   if decode_potenciometro>12 and decode_potenciometro<=15:
                         pygame.draw.rect(screen, (255,255,0), porteroArgentina3_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 700, 600)
+                        draw_text("Rulli",pygame.font.SysFont('Algerian',30),(0,0,0), 700, 600)
                         if decode[0]=="G":
                               
                               match_goalkeepers2.append(porteroArgentina3_Imagen)
@@ -454,7 +456,7 @@ while run:
                   screen.blit(porteroCR3_Imagen, porteroCR3_Rect)
                   if decode_potenciometro<=2:
                         pygame.draw.rect(screen, (255,255,0), playerCR1_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 100, 300)
+                        draw_text("Brayan",pygame.font.SysFont('Algerian',30),(0,0,0), 100, 300)
                         if decode[0]=="G":
                               
                               match_players2.append(playerCR1_Image)
@@ -465,7 +467,7 @@ while run:
                                     match_players2=match_players2[1:3:-1]
                   if decode_potenciometro>2 and decode_potenciometro<=5:
                         pygame.draw.rect(screen, (255,255,0), playerCR2_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 425, 300)
+                        draw_text("Celso",pygame.font.SysFont('Algerian',30),(0,0,0), 425, 300)
                         if decode[0]=="G":
                               
                               match_players3.append(playerCR2_Image)
@@ -477,7 +479,7 @@ while run:
 
                   if decode_potenciometro>5 and decode_potenciometro<=7:
                         pygame.draw.rect(screen, (255,255,0), playerCR3_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 700, 300)
+                        draw_text("Cambell",pygame.font.SysFont('Algerian',30),(0,0,0), 700, 300)
                         if decode[0]=="G":
                               
                               match_players3.append(playerCR3_Image)
@@ -489,7 +491,7 @@ while run:
 
                   if decode_potenciometro>7 and decode_potenciometro<=10:
                         pygame.draw.rect(screen, (255,255,0), porteroCR1_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 100, 600)
+                        draw_text("Keylor",pygame.font.SysFont('Algerian',30),(0,0,0), 100, 600)
                         if decode[0]=="G":
                               
                               match_goalkeepers3.append(porteroCR1_Imagen)
@@ -501,7 +503,7 @@ while run:
 
                   if decode_potenciometro>10 and decode_potenciometro<=12:
                         pygame.draw.rect(screen, (255,255,0), porteroCR2_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 425, 600)
+                        draw_text("Moreira",pygame.font.SysFont('Algerian',30),(0,0,0), 425, 600)
                         if decode[0]=="G":
                               
                               match_goalkeepers3.append(porteroCR2_Imagen)
@@ -513,7 +515,7 @@ while run:
 
                   if decode_potenciometro>12 and decode_potenciometro<=15:
                         pygame.draw.rect(screen, (255,255,0), porteroCR3_Rect, 8)
-                        draw_text("Seleccionado",pygame.font.SysFont('Algerian',30),(0,0,0), 700, 600)
+                        draw_text("Alvarado",pygame.font.SysFont('Algerian',30),(0,0,0), 700, 600)
                         if decode[0]=="G":
                               
                               match_goalkeepers3.append(porteroCR3_Imagen)
@@ -525,24 +527,56 @@ while run:
                                
                               
             if game_Playing:
-                  screen.blit(imagen_Fondo, (0,0))
-                  try:
+                  pantalla_Moneda=True
+                  if pantalla_Moneda==True and monedaLanzada<4:
+                        screen.blit(imagen_Fondo, (0,0))
+                        moneda_Imagen, moneda_Rect = player(100,100, moneda_List, 0)
+                        screen.blit(moneda_Imagen,moneda_Rect)
+                        lanzar=pygame.draw.rect(screen, (55,55,55), (10,525,350,100))
+                        draw_text("lanzar moneda",pygame.font.SysFont('Algerian',40),(255,255,255), 20, 550)
+                        random=2
+                        if lanzar.collidepoint(mouse):
+                              if click[0]:
+                                    monedaLanzada+=1
+                                    random=randint(0,1)
+                                    pantalla_Penales=True
+                        if random==0:
+                              moneda1_Imagen, moneda1_Rect = player(500,100, moneda_List, 1)
+                              screen.blit(moneda1_Imagen, moneda1_Rect)
+                              cuadro=pygame.draw.rect(screen, (55,55,55), (410,525,350,100))
+                              draw_text("equipo 1 local",pygame.font.SysFont('Algerian',40),(255,255,255), 420, 550)
+                        elif random==1:
+                              moneda2_Imagen, moneda2_Rect = player(500,100, moneda_List, 2)
+                              screen.blit(moneda2_Imagen, moneda2_Rect)
+                              draw_text("lanzar moneda",pygame.font.SysFont('Algerian',40),(255,255,255), 20, 550)
+                              cuadro=pygame.draw.rect(screen, (55,55,55), (410,525,350,100))
+                              draw_text("equipo 2 local",pygame.font.SysFont('Algerian',40),(255,255,255), 420, 550)
                         
-                        if len(match_players1)//2+len(match_goalkeepers1)//2==2:
-                              #screen.blit(imagen_Fondo, (0,0))
-                              screen.blit(match_players1[0], match_players1[1])
-                              screen.blit(match_goalkeepers1[0], match_goalkeepers1[1])
-                        if len(match_players2)//2+len(match_goalkeepers2)//2==2:
-                              screen.blit(match_players2[0], match_players2[1])
-                              screen.blit(match_goalkeepers2[0], match_goalkeepers2[1])
-                        if len(match_players1)//2+len(match_goalkeepers1)//2==2 and len(match_players3)//2+len(match_goalkeepers3)//2==2:
-                              screen.blit(match_players3[0], (600,100))
-                              screen.blit(match_goalkeepers3[0], (600,400))
-                        else:
-                              screen.blit(match_players3[0], match_players3[1])
-                              screen.blit(match_goalkeepers3[0], match_goalkeepers3[1])
-                  except:
-                        pass
+
+
+
+
+                  if pantalla_Penales == True and monedaLanzada>=4:
+                        screen.blit(imagen_Fondo, (0,0))
+                        try:  
+                              if len(match_players1)//2+len(match_goalkeepers1)//2==2:
+                                    screen.blit(match_players1[0], match_players1[1])
+                                    screen.blit(match_goalkeepers1[0], match_goalkeepers1[1])
+                                    draw_text("Local   Anotaciones",pygame.font.SysFont('Algerian',40),(255,255,255), 70, 50)
+                              if len(match_players2)//2+len(match_goalkeepers2)//2==2:
+                                    screen.blit(match_players2[0], match_players2[1])
+                                    screen.blit(match_goalkeepers2[0], match_goalkeepers2[1])
+                                    draw_text("Visitante   Anotaciones",pygame.font.SysFont('Algerian',40),(255,255,255), 550, 50)
+                              if len(match_players1)//2+len(match_goalkeepers1)//2==2 and len(match_players3)//2+len(match_goalkeepers3)//2==2:
+                                    screen.blit(match_players3[0], (600,100))
+                                    screen.blit(match_goalkeepers3[0], (600,400))
+                                    draw_text("Visitante   Anotaciones",pygame.font.SysFont('Algerian',40),(255,255,255), 550, 50)
+                              else:
+                                    screen.blit(match_players3[0], match_players3[1])
+                                    screen.blit(match_goalkeepers3[0], match_goalkeepers3[1])
+                                    draw_text("Local   Anotaciones",pygame.font.SysFont('Algerian',40),(255,255,255), 70, 50)
+                        except:
+                              pass
 
             
             for event in pygame.event.get():
