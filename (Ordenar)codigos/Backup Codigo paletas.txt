@@ -1,0 +1,21 @@
+
+import time
+
+def paleta(numero):
+    if numero ==0:
+        return 'A'
+    else:
+        return 'B'
+
+run=True
+while run:
+    numero = int(input('ingresar un numero'))
+    valor=paleta(numero)
+    if valor=='A':
+        print('led 1 encendido')
+    else:
+        print('ningun led encendido')
+
+    if numero==10:
+        run=False
+    
