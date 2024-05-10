@@ -146,7 +146,7 @@ def anotaciones(x, y, valor):
             #print(valor[0])
       # else:
       #       anotacion=pygame.draw.rect(screen, (0,255,0), (110,110,x,y))
-      #
+
 
 run=True
 
