@@ -138,23 +138,24 @@ def player(x, y,lista, image_index):
 
 
 def anotaciones(x, y, valor):
-      fallo=pygame.draw.rect(screen, (255,0,0), (110,110,x,y))
-      anotacion=pygame.draw.rect(screen, (0,255,0), (110,110,x,y))
-      
+      # fallo=pygame.draw.rect(screen, (255,0,0), (110,110,x,y))
+      # anotacion=pygame.draw.rect(screen, (0,255,0), (110,110,x,y))
+      print(valor[0])
       if valor[0]=='A' or valor=='B' or valor=='C' or valor=='D' or valor=='E' or valor=='F':
-            print('balon detenido')
-      else:
-            print('anotacion')
+            fallo=pygame.draw.rect(screen, (255,0,0), (110,110,x,y))
+            #print(valor[0])
+      # else:
+      #       anotacion=pygame.draw.rect(screen, (0,255,0), (110,110,x,y))
 
 run=True
 
 while run:
-
+      
 
       if (Rpi.isOpen()):
             datos=Rpi.readline()
             decode=datos.decode('UTF-8')
-            
+            # print(decode[0])
             
             clock.tick(fps)
 
@@ -556,6 +557,8 @@ while run:
 
                   if pantalla_Penales == True and monedaLanzada>=4:
                         screen.blit(imagen_Fondo, (0,0))
+                        anotaciones(100,100, decode)
+                        anotaciones(200,200, decode)
                         try:  
                               if len(match_players1)//2+len(match_goalkeepers1)//2==2:
                                     screen.blit(match_players1[0], match_players1[1])
@@ -576,7 +579,7 @@ while run:
                         except:
                               pass
                   
-                        anotaciones(100,100, decode)
+                        
 
             
             for event in pygame.event.get():
